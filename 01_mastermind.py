@@ -42,5 +42,31 @@
 # Движок игры реализует только саму функциональность игры.
 # Это пример применения SOLID принципа (см https://goo.gl/GFMoaI) в архитектуре программ.
 # Точнее, в этом случае важен принцип единственной ответственности - https://goo.gl/rYb3hT
+#from mastermind_engine import game_number, check_number, make_a_number, game_not_over, bulls_and_cows
+import mastermind_engine
+user_number = []
+#bulls_and_cows = {'bulls': 0, 'cows': 0}
+while True:
+    number_of_moves = 0
+    user_number.clear()
+    mastermind_engine.bulls_and_cows['bulls'] = 0
+    mastermind_engine.bulls_and_cows['cows'] = 0
+    mastermind_engine.game_number = mastermind_engine.make_a_number()
+    while mastermind_engine.game_not_over(number=user_number):
+        if len(user_number) > 3:
+            print('Количество быков = {}', mastermind_engine.bulls_and_cows.setdefault('bulls'))
+            print('Количество коров = {}', mastermind_engine.bulls_and_cows.setdefault('cows'))
+        number_of_moves += 1
+#        print(mastermind_engine.game_number)
+        game_number_str = input('Введите правильное четырехзначное число ')
+        if len(game_number_str) > 3:
+            user_number.clear()
+            mastermind_engine.bulls_and_cows['bulls'] = 0
+            mastermind_engine.bulls_and_cows['cows'] = 0
+            for i in range(len(game_number_str)):
+                user_number.insert(i, game_number_str[i])
+    print('Вы угадали число за {} ходов \n Хотите еще партию?'.format(number_of_moves))
+    if int(input(' y = 1 \n n = 0')) == 0:
+        break
 
-# TODO здесь ваш код...
+
